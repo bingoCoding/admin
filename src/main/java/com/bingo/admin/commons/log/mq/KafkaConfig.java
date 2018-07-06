@@ -18,6 +18,8 @@ import org.springframework.kafka.core.ProducerFactory;
 /**
  * Kafka配置类
  * 
+ * @author 	alanwei
+ * @since	2016-12-20
  */
 @Configuration
 @ConditionalOnProperty(prefix = "app.log.trace", name = "enable", matchIfMissing = false)

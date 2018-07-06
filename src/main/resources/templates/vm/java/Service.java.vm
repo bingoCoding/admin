@@ -1,0 +1,32 @@
+package ${packageName}.service.${moduleName};
+
+import ${packageName}.entity.${moduleName}.${entity.simpleName};
+import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * ${entityLabel} 服务层
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface I${entity.simpleName}Service {
+
+	${entity.simpleName} save(${entity.simpleName} ${varEntityName});
+
+	${entity.simpleName} get${entity.simpleName}ById(Long ${varEntityName}Id);
+
+    List<${entity.simpleName}> findAll();
+
+    int check${entity.simpleName}NameUnique(Long id,String ${varEntityName}Name);
+
+    void deleteById(Long id);
+
+    Optional<${entity.simpleName}> findOne(Specification<${entity.simpleName}> specification);
+
+    List<${entity.simpleName}> findAll(Specification<${entity.simpleName}> specification);
+	
+}

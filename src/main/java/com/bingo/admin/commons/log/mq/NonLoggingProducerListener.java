@@ -16,7 +16,7 @@ public class NonLoggingProducerListener<K, V> extends LoggingProducerListener<K,
 	/**
 	 * 不打印异常
 	 * 
-	 * @see org.springframework.kafka.support.LoggingProducerListener#onError(String, Integer, Object, Object, Exception)
+	 * @see LoggingProducerListener#onError(String, Integer, Object, Object, Exception)
 	 */
 	@Override
 	public void onError(String topic, Integer partition, K key, V value, Exception exception) {

@@ -107,6 +107,18 @@ public class Role extends BaseEntity{
         this.menus = menus;
     }
 
+    @Transient
+    public void setMenusByArray(String[] menuIds){
+        if(menuIds.length>0){
+            for (String menuId:menuIds) {
+                if (menuId!=null&&menuId.length()>0){
+                    Menu m=new Menu();
+                    m.setId(Long.valueOf(menuId));
+                    this.menus.add(m);
+                }
+            }
+        }
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,18 +126,18 @@ public class Role extends BaseEntity{
 
         Role role = (Role) o;
 
+        if (id != role.id) return false;
         if (status != role.status) return false;
         if (flag != role.flag) return false;
         if (roleName != null ? !roleName.equals(role.roleName) : role.roleName != null) return false;
         if (roleKey != null ? !roleKey.equals(role.roleKey) : role.roleKey != null) return false;
-        if (roleSort != null ? !roleSort.equals(role.roleSort) : role.roleSort != null) return false;
-        if (remark != null ? !remark.equals(role.remark) : role.remark != null) return false;
-        return menus != null ? menus.equals(role.menus) : role.menus == null;
+        return roleSort != null ? roleSort.equals(role.roleSort) : role.roleSort == null;
     }
 
     @Override
     public int hashCode() {
-        int result = roleName != null ? roleName.hashCode() : 0;
+        int result = id.intValue();
+        result = 31 * result + (roleName != null ? roleName.hashCode() : 0);
         result = 31 * result + (roleKey != null ? roleKey.hashCode() : 0);
         result = 31 * result + (roleSort != null ? roleSort.hashCode() : 0);
         result = 31 * result + status;

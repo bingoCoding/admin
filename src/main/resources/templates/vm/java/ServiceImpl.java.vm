@@ -1,0 +1,60 @@
+package ${packageName}.service.impl.${moduleName};
+
+import ${packageName}.dao.${moduleName}.${entity.simpleName}Dao;
+import ${packageName}.entity.${moduleName}.${entity.simpleName};
+import ${packageName}.service.${moduleName}.I${entity.simpleName}Service;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+
+/**
+ * ${entityLabel}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${entity.simpleName}Service implements I${entity.simpleName}Service {
+
+    @Resource
+	private ${entity.simpleName}Dao ${varEntityName}Dao;
+
+    @Override
+    public ${entity.simpleName} save(${entity.simpleName} ${varEntityName}) {
+        return ${varEntityName}Dao.save(${varEntityName});
+    }
+
+    @Override
+    public ${entity.simpleName} get${entity.simpleName}ById(Long id) {
+        return ${varEntityName}Dao.get${entity.simpleName}ById(id);
+    }
+
+    @Override
+    public List<${entity.simpleName}> findAll() {
+        return ${varEntityName}Dao.findAll();
+    }
+
+    @Override
+    public int check${entity.simpleName}NameUnique(Long id, String ${varEntityName}Name) {
+        return ${varEntityName}Dao.check${entity.simpleName}NameUnique(id,${varEntityName}Name);
+    }
+
+    @Override
+    public Optional<${entity.simpleName}> findOne(Specification<${entity.simpleName}> specification) {
+        return ${varEntityName}Dao.findOne(specification);
+    }
+    @Override
+    public List<${entity.simpleName}> findAll(Specification<${entity.simpleName}> specification) {
+        return ${varEntityName}Dao.findAll(specification);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+		${varEntityName}Dao.deleteById(id);
+    }
+}

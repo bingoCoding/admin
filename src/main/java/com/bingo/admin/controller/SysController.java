@@ -15,7 +15,7 @@ public class SysController {
 
     @RequestMapping("/index")
     public String login(HttpServletRequest request){
-        Set<Menu> menus= SpringSecurityUtils.getCurrentUserMenus();
+        Set<Menu> menus=SpringSecurityUtils.getCurrentUserMenus();
         List<Menu> list=new ArrayList<>(menus);
         Collections.sort(list, new Comparator<Menu>() {
             @Override
@@ -24,7 +24,7 @@ public class SysController {
             }
         });
         System.out.println("list:"+list);
-        System.out.println("menus:"+ TreeUtils.getChildPerms(list,0));
+        System.out.println("menus:"+TreeUtils.getChildPerms(list,0));
 
         request.getSession().setAttribute("menus", TreeUtils.getChildPerms(list,0));
         request.getSession().setAttribute("user", SpringSecurityUtils.getCurrentUser());
@@ -33,4 +33,10 @@ public class SysController {
         );
         return "index";
     }
+
+//    @RequestMapping("/logout")
+//    public String logout(HttpServletRequest request){
+//
+//        return "login";
+//    }
 }

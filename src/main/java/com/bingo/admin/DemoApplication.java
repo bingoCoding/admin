@@ -2,11 +2,13 @@ package com.bingo.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-public class AdminApplication {
+@EnableJpaAuditing
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AdminApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 }

@@ -41,6 +41,8 @@ public class User extends BaseEntity{
     /** 角色组 */
     private List<Role> useRoles = new LinkedList<Role>();
 
+    private Domain domain;
+
     private boolean enabled=true;// 账户可用
     private boolean accountExpired=true;// 帐号过期
     private boolean accountLocked=true;// 帐号锁定
@@ -164,6 +166,16 @@ public class User extends BaseEntity{
         this.useRoles = useRoles;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "deptId", insertable = false, updatable = false, nullable=true)
+    public Domain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -202,6 +214,19 @@ public class User extends BaseEntity{
 
     public void setCredentialsExpired(boolean credentialsExpired) {
         this.credentialsExpired = credentialsExpired;
+    }
+
+    @Transient
+    public void setUserRolesByArray(String[] roleIds){
+        if(roleIds.length>0){
+            for (String roleId:roleIds) {
+                if (roleId!=null&&roleId.length()>0){
+                    Role r=new Role();
+                    r.setId(Long.valueOf(roleId));
+                    this.useRoles.add(r);
+                }
+            }
+        }
     }
 
     @Override

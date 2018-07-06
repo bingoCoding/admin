@@ -1,0 +1,122 @@
+package ${packageName}.controller.${moduleName};
+
+import com.bingo.admin.commons.jpa.FilterBuilder;
+import com.bingo.admin.commons.result.R;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
+
+import ${packageName}.entity.${moduleName}.${entity.simpleName};
+import ${packageName}.service.${moduleName}.I${entity.simpleName}Service;
+#foreach($element in $propertyList)
+	#if($element.selectionType.toString()=="Enum")
+			import ${packageName}.entity.enums.${moduleName}.${element.enumName};
+	#end
+#end
+
+/**
+ * ${entityLabel} 控制层处理
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Controller
+@RequestMapping("/${moduleName}/${varEntityName}")
+public class ${entity.simpleName}Controller {
+
+    private String prefix = "view/${moduleName}";
+
+    @Resource
+	private I${entity.simpleName}Service ${varEntityName}Service;
+
+
+    @ModelAttribute
+    public Model get${entity.simpleName}(@RequestParam(name = "id",required = false) Long id,Model model){
+        if(id!=null){
+			${entity.simpleName} ${varEntityName}=${varEntityName}Service.get${entity.simpleName}ById(id);
+            model.addAttribute("${varEntityName}",${varEntityName});
+        }
+        return  model;
+    }
+
+    @PreAuthorize("hasAuthority('${moduleName}:${varEntityName}')")
+    @RequestMapping("")
+    public String toUser(HttpServletResponse response){
+        return prefix+"/${varEntityName}-list";
+    }
+
+    @PreAuthorize("hasAuthority('${moduleName}:${varEntityName}:add')")
+    @RequestMapping("/add")
+    public String toAdd(Model model){
+        return prefix+"/${varEntityName}-add";
+    }
+
+    @PreAuthorize("hasAuthority('${moduleName}:${varEntityName}:update')")
+    @RequestMapping("/edit/{id}")
+    public String toEdit(@PathVariable Long id, Model model){
+        model.addAttribute("${varEntityName}",${varEntityName}Service.get${entity.simpleName}ById(id));
+        return prefix+"/${varEntityName}-edit";
+    }
+
+    @PreAuthorize("hasAuthority('${moduleName}:${varEntityName}')")
+    @RequestMapping("/list")
+    @ResponseBody
+    public PageInfo list(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        return new PageInfo(${varEntityName}Service.findAll());
+    }
+
+    /**
+     * 校验${entityLabel}名称
+     */
+    @PostMapping("/sys/role/check${entity.simpleName}NameUnique")
+    @ResponseBody
+    public boolean check${entity.simpleName}NameUnique(String ${varEntityName}Name,Long ${varEntityName}Id)
+    {
+        Specification<${entity.simpleName}> specification= new FilterBuilder().add("id","!=",${varEntityName}Id)
+                .add("${varEntityName}Name","=",${varEntityName}Name).buildFilter();
+        Optional<${entity.simpleName}> optional= ${varEntityName}Service.findOne(specification);
+        return !optional.isPresent();
+    }
+
+    /**
+     * 保存${entityLabel}
+     */
+    @PreAuthorize("hasAnyAuthority('${moduleName}:${varEntityName}:add','${moduleName}:${varEntityName}:update')")
+    @PostMapping("/save")
+    @ResponseBody
+    public R save(@ModelAttribute("${varEntityName}") ${entity.simpleName} ${varEntityName}){
+        ${varEntityName}=${varEntityName}Service.save(${varEntityName});
+        if (${varEntityName}.getId()!=null){
+            return R.ok();
+        }
+        return R.error();
+    }
+
+    @PreAuthorize("hasAuthority('${moduleName}:${varEntityName}:remove')")
+    @RequestMapping("/remove/{id}")
+    @ResponseBody
+    public R remove(@PathVariable("id") Long id)
+    {
+        try {
+			${varEntityName}Service.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+            e.printStackTrace();
+            return R.error("删除失败\n该数据被其他数据引用");
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error("删除失败");
+        }
+        return R.ok("删除成功");
+    }
+
+}

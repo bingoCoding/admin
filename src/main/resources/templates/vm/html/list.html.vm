@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="btn-group hidden-xs" id="tableToolbar" role="group">
+        <button type="button" class="btn btn-outline btn-default" th:onclick="'javascript:add()'" sec:authorize='hasAuthority("${moduleName}:${varEntityName}:add")'>
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+        <button type="button" class="btn btn-outline btn-default" th:onclick="'javascript:batchRemove()'" sec:authorize='hasAuthority("${moduleName}:${varEntityName}:batchRemove")'>
+            <i class="glyphicon glyphicon-trash"></i>
+        </button>
+        </div>
+        <table class="bootstrap-table" data-mobile-responsive="true">
+        </table>
+    </div>
+    <div th:include="include :: footer"></div>
+    <script src="/itemjs/${moduleName}/${varEntityName}-list.js" th:src="@{/itemjs/${moduleName}/${varEntityName}-list.js}"></script>
+    <script th:inline="javascript">
+            #set($prex="[${")
+            #set($subx="}]]")
+
+        /*<![CDATA[*/
+        var editFlag = [$prex T(com.bingo.admin.commons.security.PermUtil).hasPerm("${moduleName}:${varEntityName}:update$")$subx ;
+        var removeFlag = [$prex T(com.bingo.admin.commons.security.PermUtil).hasPerm("${moduleName}:${varEntityName}:remove$")$subx ;
+        /*]]>*/
+    </script>
+</body>
+</html>

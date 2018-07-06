@@ -3,7 +3,6 @@
  */
 package com.bingo.admin.commons.log.anotation;
 
-
 import com.bingo.admin.commons.log.mq.MessageSender;
 import com.bingo.admin.utils.ExecutorServiceTool;
 

@@ -7,12 +7,21 @@ import javax.persistence.Table;
 @Table(name = "acc_domain")
 @Entity
 public class Domain extends BaseEntity{
-    /** 岗位编码 */
-    private String postCode;
-    /** 岗位名称 */
-    private String postName;
-    /** 岗位排序 */
-    private String postSort;
+    /** 父部门ID */
+    private Long parentId;
+    /** 父部门名称 */
+    private String parentName;
+    /** 部门名称 */
+    private String deptName;
+    /** 显示顺序 */
+    private String orderNum;
+    /** 负责人 */
+    private String leader;
+    /** 联系电话 */
+    private String phone;
+    /** 邮箱 */
+    private String email;
+
     /** 状态（0正常 1停用） */
     private int status=0;
     /** 用户是否存在此岗位标识 默认不存在 */
@@ -21,28 +30,60 @@ public class Domain extends BaseEntity{
     private String remark;
 
 
-    public String getPostCode() {
-        return postCode;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
-    public String getPostName() {
-        return postName;
+    public String getParentName() {
+        return parentName;
     }
 
-    public void setPostName(String postName) {
-        this.postName = postName;
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 
-    public String getPostSort() {
-        return postSort;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setPostSort(String postSort) {
-        this.postSort = postSort;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getLeader() {
+        return leader;
+    }
+
+    public void setLeader(String leader) {
+        this.leader = leader;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getStatus() {
@@ -78,17 +119,25 @@ public class Domain extends BaseEntity{
 
         if (status != domain.status) return false;
         if (flag != domain.flag) return false;
-        if (postCode != null ? !postCode.equals(domain.postCode) : domain.postCode != null) return false;
-        if (postName != null ? !postName.equals(domain.postName) : domain.postName != null) return false;
-        if (postSort != null ? !postSort.equals(domain.postSort) : domain.postSort != null) return false;
+        if (parentId != null ? !parentId.equals(domain.parentId) : domain.parentId != null) return false;
+        if (parentName != null ? !parentName.equals(domain.parentName) : domain.parentName != null) return false;
+        if (deptName != null ? !deptName.equals(domain.deptName) : domain.deptName != null) return false;
+        if (orderNum != null ? !orderNum.equals(domain.orderNum) : domain.orderNum != null) return false;
+        if (leader != null ? !leader.equals(domain.leader) : domain.leader != null) return false;
+        if (phone != null ? !phone.equals(domain.phone) : domain.phone != null) return false;
+        if (email != null ? !email.equals(domain.email) : domain.email != null) return false;
         return remark != null ? remark.equals(domain.remark) : domain.remark == null;
     }
 
     @Override
     public int hashCode() {
-        int result = postCode != null ? postCode.hashCode() : 0;
-        result = 31 * result + (postName != null ? postName.hashCode() : 0);
-        result = 31 * result + (postSort != null ? postSort.hashCode() : 0);
+        int result = parentId != null ? parentId.hashCode() : 0;
+        result = 31 * result + (parentName != null ? parentName.hashCode() : 0);
+        result = 31 * result + (deptName != null ? deptName.hashCode() : 0);
+        result = 31 * result + (orderNum != null ? orderNum.hashCode() : 0);
+        result = 31 * result + (leader != null ? leader.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + status;
         result = 31 * result + (flag ? 1 : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
@@ -98,18 +147,16 @@ public class Domain extends BaseEntity{
     @Override
     public String toString() {
         return "Domain{" +
-                "postCode='" + postCode + '\'' +
-                ", postName='" + postName + '\'' +
-                ", postSort='" + postSort + '\'' +
+                "parentId=" + parentId +
+                ", parentName='" + parentName + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", orderNum='" + orderNum + '\'' +
+                ", leader='" + leader + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 ", status=" + status +
                 ", flag=" + flag +
                 ", remark='" + remark + '\'' +
-                ", createTime=" + createTime +
-                ", createBy='" + createBy + '\'' +
-                ", lastModifyTime=" + lastModifyTime +
-                ", lastModifyBy='" + lastModifyBy + '\'' +
-                ", id=" + id +
-                ", sessCode=" + sessCode +
                 '}';
     }
 }

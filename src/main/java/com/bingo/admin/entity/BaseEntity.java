@@ -1,12 +1,18 @@
 package com.bingo.admin.entity;
 
+import com.bingo.admin.utils.SpringSecurityUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity extends BaseObject {
     private static final long serialVersionUID = 2633080185333846843L;
     protected Date createTime;
@@ -18,7 +24,7 @@ public abstract class BaseEntity extends BaseObject {
     /**
      * 创建时间. 本属性只在save时有效,update时无效.
      */
-    @Column(updatable = false)
+    @CreatedDate
     @JsonFormat(timezone = "GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     public Date getCreateTime() {
         return createTime;
@@ -33,9 +39,7 @@ public abstract class BaseEntity extends BaseObject {
 //    }
 
     public void setCreateTime(Date createTime) {
-        if(createTime != null){
-            this.createTime = createTime;
-        }
+        this.createTime=createTime;
     }
 
     /**
@@ -47,15 +51,17 @@ public abstract class BaseEntity extends BaseObject {
     }
 
     public void setCreateBy(String createBy) {
-        if(createBy != null && !createBy.equals("")){
+        if(createBy != null){
             this.createBy = createBy;
+        }else{
+            this.createBy=SpringSecurityUtils.getCurrentUserName();
         }
     }
 
     /**
      * 最后修改时间. 本属性只在update时有效,save时无效.
      */
-    @Column(insertable = false)
+    @LastModifiedDate
     @JsonFormat(timezone = "GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     public Date getLastModifyTime() {
         return lastModifyTime;
@@ -74,7 +80,11 @@ public abstract class BaseEntity extends BaseObject {
     }
 
     public void setLastModifyBy(String lastModifyBy) {
-        this.lastModifyBy = lastModifyBy;
+        if (lastModifyBy!=null){
+            this.lastModifyBy = lastModifyBy;
+        }else{
+            this.lastModifyBy = SpringSecurityUtils.getCurrentUserName();
+        }
     }
 
 }

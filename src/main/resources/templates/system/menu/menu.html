@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content">
+	    <div class="btn-group hidden-xs" id="tableToolbar" role="group">
+	    	<div class="form-group">
+	            <button sec:authorize="hasAuthority('sys:menu:add')" type="button" class="btn btn-outline btn-default" th:onclick="'javascript:add(0)'" >
+	                <i class="glyphicon glyphicon-plus"></i>
+	            </button>
+			</div>
+        </div>
+		<table class="bootstrap-table" data-mobile-responsive="true">
+		</table>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script src="/itemjs/system/menu/menu.js" th:src="@{/itemjs/system/menu/menu.js}"></script>
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+        var addFlag = [[${T(com.bingo.admin.commons.security.PermUtil).hasPerm("sys:menu:add")}]] ;
+        var editFlag = [[${T(com.bingo.admin.commons.security.PermUtil).hasPerm("sys:menu:update")}]] ;
+        var removeFlag = [[${T(com.bingo.admin.commons.security.PermUtil).hasPerm("sys:menu:remove")}]] ;
+        /*]]>*/
+	</script>
+</body>
+</html>

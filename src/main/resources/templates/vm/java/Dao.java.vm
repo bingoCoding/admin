@@ -1,0 +1,24 @@
+package ${packageName}.dao.${moduleName};
+
+import ${packageName}.entity.${moduleName}.${entity.simpleName};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${entityLabel}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${entity.simpleName}Dao extends JpaRepository<${entity.simpleName},Long>,JpaSpecificationExecutor<${entity.simpleName}> {
+
+	${entity.simpleName} get${entity.simpleName}ById(Long id);
+
+    @Query(value = "select count(1) from ${underEntityName} where id <> ?1 and ${underEntityName}_name=?2",nativeQuery = true)
+    int check${entity.simpleName}NameUnique(Long id, String ${varEntityName}Name);
+
+}

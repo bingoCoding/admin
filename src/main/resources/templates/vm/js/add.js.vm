@@ -1,0 +1,34 @@
+$("#form-${varEntityName}-add").validate({
+    rules:{
+		${varEntityName}Name:{
+            required:true,
+            remote: {
+                url: ctx + "${moduleName}/${varEntityName}/check${varEntityName}NameUnique",
+                type: "post",
+                data: {
+                    "${varEntityName}Name" : function() {
+                        return $.trim($("#${varEntityName}Name").val());
+                    }
+                }
+            }
+        },
+        roleKey:{
+            required:true,
+        },
+        roleSort:{
+            required:true,
+        },
+    },
+    messages: {
+        "${varEntityName}Name": {
+            remote: "角色已经存在"
+        }
+    },
+    submitHandler:function(form){
+        add();
+    }
+});
+
+function add() {
+    _ajax_save(ctx + "${moduleName}/${varEntityName}/save", $('#form-${varEntityName}-add').serialize());
+}

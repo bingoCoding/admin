@@ -19,6 +19,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     protected void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/error/unauth").setViewName("/error/unauth");
         super.addViewControllers(registry);
     }
 
@@ -41,7 +42,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/ajax/**").addResourceLocations("classpath:/static/ajax/");
         registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
-        registry.addResourceHandler("/ruoyi/**").addResourceLocations("classpath:/static/ruoyi/");
+        registry.addResourceHandler("/itemjs/**").addResourceLocations("classpath:/static/itemjs/");
         registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
         super.addResourceHandlers(registry);
     }

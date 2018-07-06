@@ -1,6 +1,7 @@
 package com.bingo.admin.commons.security;
 
 import com.bingo.admin.entity.Menu;
+import com.bingo.admin.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

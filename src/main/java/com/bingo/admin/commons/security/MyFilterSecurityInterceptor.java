@@ -102,18 +102,18 @@ import java.io.IOException;
         }
 
         public void invoke(FilterInvocation fi) throws IOException, ServletException {
-            if ((fi.getRequest() != null) && (fi.getRequest().getAttribute(FILTER_APPLIED) != null)
-                    && observeOncePerRequest) {
-                // filter already applied to this request and user wants us to
-                // observe
-                // once-per-request handling, so don't re-do security checking
-                fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
-            } else {
+//            if ((fi.getRequest() != null) && (fi.getRequest().getAttribute(FILTER_APPLIED) != null)
+//                    && observeOncePerRequest) {
+//                // filter already applied to this request and user wants us to
+//                // observe
+//                // once-per-request handling, so don't re-do security checking
+//                fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
+//            } else {
                 // first time this request being called, so perform security
                 // checking
-                if (fi.getRequest() != null) {
-                    fi.getRequest().setAttribute(FILTER_APPLIED, Boolean.TRUE);
-                }
+//                if (fi.getRequest() != null) {
+//                    fi.getRequest().setAttribute(FILTER_APPLIED, Boolean.TRUE);
+//                }
 
                 InterceptorStatusToken token = super.beforeInvocation(fi);
 
@@ -122,7 +122,7 @@ import java.io.IOException;
                 } finally {
                     super.afterInvocation(token, null);
                 }
-            }
+//            }
         }
 
         /**

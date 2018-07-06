@@ -1,6 +1,7 @@
 package com.bingo.admin.entity;
 
 import com.bingo.admin.utils.ReflectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.access.ConfigAttribute;
@@ -128,7 +129,7 @@ public class Menu extends BaseEntity{
     }
 
     @ManyToMany(mappedBy = "menus")
-    @Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.SUBSELECT)
     public Set<Role> getAuthorities() {
         return authorities;
     }
@@ -159,27 +160,29 @@ public class Menu extends BaseEntity{
 
         Menu menu = (Menu) o;
 
-        if (visible != menu.visible) return false;
-        if (!menuName.equals(menu.menuName)) return false;
-        if (!parentName.equals(menu.parentName)) return false;
-        if (!parentId.equals(menu.parentId)) return false;
-        if (!orderNum.equals(menu.orderNum)) return false;
-        if (!url.equals(menu.url)) return false;
-        if (!menuType.equals(menu.menuType)) return false;
-        if (!perms.equals(menu.perms)) return false;
-        if (!icon.equals(menu.icon)) return false;
-        return remark.equals(menu.remark);
+        if (id!=menu.id) return false;
+        if (menuName != null ? !menuName.equals(menu.menuName) : menu.menuName != null) return false;
+        if (parentName != null ? !parentName.equals(menu.parentName) : menu.parentName != null) return false;
+        if (parentId != null ? !parentId.equals(menu.parentId) : menu.parentId != null) return false;
+        if (orderNum != null ? !orderNum.equals(menu.orderNum) : menu.orderNum != null) return false;
+        if (url != null ? !url.equals(menu.url) : menu.url != null) return false;
+        if (menuType != null ? !menuType.equals(menu.menuType) : menu.menuType != null) return false;
+        return perms != null ? perms.equals(menu.perms) : menu.perms == null;
     }
 
     @Override
     public int hashCode() {
-        int result = menuName.hashCode();
-        result = 31 * result + parentId.hashCode();
-        result = 31 * result + orderNum.hashCode();
-        result = 31 * result + url.hashCode();
-        result = 31 * result + menuType.hashCode();
+        int result = id.intValue();
+        result = 31 * result + (menuName != null ? menuName.hashCode() : 0);
+        result = 31 * result + (parentName != null ? parentName.hashCode() : 0);
+        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
+        result = 31 * result + (orderNum != null ? orderNum.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (menuType != null ? menuType.hashCode() : 0);
         result = 31 * result + visible;
-        result = 31 * result + perms.hashCode();
+        result = 31 * result + (perms != null ? perms.hashCode() : 0);
+        result = 31 * result + (icon != null ? icon.hashCode() : 0);
+        result = 31 * result + (remark != null ? remark.hashCode() : 0);
         return result;
     }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-${varEntityName}-add">
+        #foreach($item in $propertyList)
+        #if($element.name != "id")
+        <div class="form-group">	
+            <label class="col-sm-3 control-label">$item.label：</label>
+            <div class="col-sm-8">
+##                #if ($item.selectionType=="Enum")
+##                    <s:select list="${item.name}Map" name="ent.$item.name"/>
+##                #elseif ($item.type=="B")
+##                    <s:radio list="#{'true':'是','false':'否' }" name="ent.$item.name" />
+##                #elseif ($item.selectionType=="ObjectList")
+##                    <s:textfield name="ent.${item.varEntityName}Id" cssStyle="display:none" />
+##                        <s:textfield name="ent.${item.varEntityName}${item.majorProperty}" readonly="true" size="11" cssClass="required" />
+##                        <input type="button" value="选择..." id="select${item.clazz.simpleName}" />
+##                #else
+                    <input id="${item.name}" name="${item.name}" class="form-control" type="text">
+##                #end
+            </div>
+        </div>
+        #end
+        #end
+
+        <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script src="/itemjs/${moduleName}/${varEntityName}-add.js" th:src="@{/itemjs/${moduleName}/${varEntityName}-add.js}">
+    </script>
+</body>
+</html>

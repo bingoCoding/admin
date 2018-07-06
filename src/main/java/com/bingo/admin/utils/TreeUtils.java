@@ -1,6 +1,5 @@
 package com.bingo.admin.utils;
 
-
 import com.bingo.admin.entity.Menu;
 
 import java.util.ArrayList;

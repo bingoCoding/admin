@@ -8,6 +8,8 @@ import com.bingo.admin.service.IDomainService;
 import com.bingo.admin.service.IMenuService;
 import com.bingo.admin.service.IRoleService;
 import com.bingo.admin.service.IUserService;
+import com.bingo.admin.service.impl.DomainService;
+import com.bingo.admin.service.impl.MenuService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -32,9 +34,9 @@ public class InitSql implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Domain domain=new Domain();
-        domain.setPostCode("10000000000");
-        domain.setPostName("超级管理部");
-        domain.setPostSort("0");
+        domain.setDeptName("超级管理部");
+        domain.setOrderNum("0");
+        domain.setParentId(0L);
         domain=domainService.save(domain);
 
         Menu menu=new Menu();
@@ -52,7 +54,7 @@ public class InitSql implements CommandLineRunner {
         menu2.setOrderNum("1");
         menu2.setParentId(2L);
         menu2.setPerms("sys:user");
-        menu2.setUrl("sys:user");
+        menu2.setUrl("/sys/user");
         menu2=menuService.save(menu2);
 
         Menu menu3=new Menu();
@@ -61,7 +63,7 @@ public class InitSql implements CommandLineRunner {
         menu3.setOrderNum("2");
         menu3.setParentId(2L);
         menu3.setPerms("sys:role");
-        menu3.setUrl("sys:role");
+        menu3.setUrl("/sys/role");
         menu3=menuService.save(menu3);
 
         Role role=new Role();

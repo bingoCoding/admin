@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 /**
  * spring工具类 方便在非spring管理环境中获取bean
  *
- * @author ruoyi
  */
 @Component
-public final class SpringUtils implements BeanFactoryPostProcessor
-{
+public final class SpringUtils implements BeanFactoryPostProcessor{
     /** Spring应用上下文环境 */
     private static ConfigurableListableBeanFactory beanFactory;
 
@@ -29,7 +27,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor
      *
      * @param name
      * @return Object 一个以所给名字注册的bean的实例
-     * @throws org.springframework.beans.BeansException
+     * @throws BeansException
      *
      */
     @SuppressWarnings("unchecked")
@@ -43,7 +41,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor
      *
      * @param clz
      * @return
-     * @throws org.springframework.beans.BeansException
+     * @throws BeansException
      *
      */
     public static <T> T getBean(Class<T> clz) throws BeansException
@@ -68,7 +66,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor
      *
      * @param name
      * @return boolean
-     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     * @throws NoSuchBeanDefinitionException
      *
      */
     public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException
@@ -79,7 +77,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor
     /**
      * @param name
      * @return Class 注册对象的类型
-     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     * @throws NoSuchBeanDefinitionException
      *
      */
     public static Class<?> getType(String name) throws NoSuchBeanDefinitionException
@@ -92,7 +90,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor
      *
      * @param name
      * @return
-     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     * @throws NoSuchBeanDefinitionException
      *
      */
     public static String[] getAliases(String name) throws NoSuchBeanDefinitionException

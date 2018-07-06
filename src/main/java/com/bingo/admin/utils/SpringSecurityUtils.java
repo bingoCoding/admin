@@ -80,7 +80,7 @@ public class SpringSecurityUtils {
      * @return
      */
     private static User loadUserFromDb(Long userId){
-        UserService userService = SpringUtils.getBean(UserService.class);
+        UserService  userService = SpringUtils.getBean(UserService.class);
     	return userService.getUserById(userId);
     }
     
@@ -124,6 +124,25 @@ public class SpringSecurityUtils {
         for (String role : roles) {
             for (GrantedAuthority authority : granteds) {
                 if (role.equals(authority.getAuthority())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /**
+     * 判断用户是否拥有角色, 如果用户拥有参数中的任意一个角色则返回true.
+     */
+    public static boolean hasAuthories(String... auths) {
+        Authentication authentication = getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+
+        Collection<GrantedAuthority> granteds = (Collection<GrantedAuthority>) authentication.getAuthorities();
+        for (String auth : auths) {
+            for (GrantedAuthority authority : granteds) {
+                if (auth.equals(authority.getAuthority())) {
                     return true;
                 }
             }

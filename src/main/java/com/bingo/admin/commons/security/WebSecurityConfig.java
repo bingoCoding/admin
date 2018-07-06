@@ -90,6 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .usernameParameter("loginName")
                 .permitAll()
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
@@ -126,12 +127,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .logout()
-                .logoutUrl("/loginout").logoutSuccessUrl("/")
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(myAccessDeniedHandler);
+                .logoutUrl("/logout").logoutSuccessUrl("/login")
+                .permitAll();
+//                .and()
+//                .exceptionHandling()
+//                .accessDeniedHandler(myAccessDeniedHandler);
             http.headers().cacheControl();
+            http.headers().frameOptions().sameOrigin();
     }
 //    @Override
 //    protected void configure(HttpSecurity httpSecurity) throws Exception {

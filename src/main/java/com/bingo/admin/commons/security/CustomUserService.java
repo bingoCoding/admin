@@ -36,11 +36,11 @@ public class CustomUserService implements UserDetailsService {
      */
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-		User user = userDao.getUserByUserName(username);
+    public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException, DataAccessException {
+		User user = userDao.getUserByLoginName(loginName);
 
         if (user == null) {
-            throw new UsernameNotFoundException("用户" + username + " 不存在");
+            throw new UsernameNotFoundException("用户" + loginName + " 不存在");
         } else {
 			Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
 			Set<Menu> menuSet=new LinkedHashSet<>();

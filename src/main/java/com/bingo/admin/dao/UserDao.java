@@ -5,8 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 public interface UserDao extends JpaRepository<User,Long>,JpaSpecificationExecutor<User> {
+
     User getUserByLoginName(String loginName);
 
     User getUserById(Long userId);

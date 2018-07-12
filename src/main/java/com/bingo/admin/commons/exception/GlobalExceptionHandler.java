@@ -2,6 +2,7 @@ package com.bingo.admin.commons.exception;
 
 
 import com.bingo.admin.commons.result.R;
+import com.bingo.admin.utils.IpUtil;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +22,13 @@ import java.io.IOException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @Resource
+    private ExceptionService exceptionService;
+
     @ExceptionHandler(value = { ConstraintViolationException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R constraintViolationException(ConstraintViolationException ex) {
+        exceptionService.handleException(ex);
         return R.error("500", ex.getMessage());
     }
 
@@ -30,6 +36,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public void accessDeniedException(Exception ex, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ex.printStackTrace();
+        exceptionService.handleException(ex);
         request.getRequestDispatcher("/error/unauth").forward(request,response);
 //        return R.error("500", ex.getMessage());
     }
@@ -40,4 +47,6 @@ public class GlobalExceptionHandler {
 //        ex.printStackTrace();
 //        return R.error("500", ex.getMessage());
 //    }
+
+
 }

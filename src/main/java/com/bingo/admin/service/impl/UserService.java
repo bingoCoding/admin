@@ -1,20 +1,27 @@
 package com.bingo.admin.service.impl;
 
+import com.bingo.admin.controller.UserController;
 import com.bingo.admin.dao.DomainDao;
 import com.bingo.admin.dao.RoleDao;
 import com.bingo.admin.dao.UserDao;
 import com.bingo.admin.entity.Domain;
 import com.bingo.admin.entity.User;
 import com.bingo.admin.service.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService implements IUserService {
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Resource
     private UserDao userDao;
@@ -22,6 +29,9 @@ public class UserService implements IUserService {
     private RoleDao roleDao;
     @Resource
     private DomainDao domainDao;
+
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public User getUserByLoginName(String loginName) {
@@ -65,5 +75,11 @@ public class UserService implements IUserService {
     @Override
     public List<User> findAll(Specification<User> specification) {
         return userDao.findAll(specification);
+    }
+
+    @Override
+    public List<Map<String,Object>> testJdbc() {
+        logger.info("testJdbc testJdbc testJdbc testJdbc testJdbc testJdbc");
+        return jdbcTemplate.queryForList("SELECT * from acc_user");
     }
 }

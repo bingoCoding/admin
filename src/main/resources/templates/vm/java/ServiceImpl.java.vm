@@ -5,6 +5,8 @@ import ${packageName}.entity.${moduleName}.${entity.simpleName};
 import ${packageName}.service.${moduleName}.I${entity.simpleName}Service;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +22,9 @@ import java.util.Optional;
  */
 @Service
 public class ${entity.simpleName}Service implements I${entity.simpleName}Service {
+
+    /** 日志 */
+    private static final Logger LOG = LoggerFactory.getLogger(${entity.simpleName}Service.class);
 
     @Resource
 	private ${entity.simpleName}Dao ${varEntityName}Dao;

@@ -18,21 +18,7 @@ public final class AsyncMessagePush {
 	
 	/** 执行器 */
 	private static final ExecutorService EXECUTOR = ExecutorServiceTool.getExecutor(300);
-//	static {
-//		Runtime.getRuntime().addShutdownHook(new Thread() {
-//			public void run() {
-//				if (HeartbeatSender.isEnableSender()) {
-//					HeartbeatSender.sendAppShutdownMsg();
-//					try {
-//						TimeUnit.MILLISECONDS.sleep(500);
-//					} catch (InterruptedException e) {
-//					}
-//				}
-//				EXECUTOR.shutdown();
-//			}
-//		});
-//	}
-	
+
 	/**
 	 * 消息推送
 	 * 

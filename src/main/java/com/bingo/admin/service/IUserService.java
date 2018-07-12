@@ -4,6 +4,7 @@ import com.bingo.admin.entity.User;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IUserService {
 
@@ -22,4 +23,6 @@ public interface IUserService {
     void deleteById(Long id);
 
     List<User>  findAll(Specification<User> specification);
+
+    List<Map<String,Object>> testJdbc();
 }

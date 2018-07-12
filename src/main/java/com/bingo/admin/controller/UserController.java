@@ -8,6 +8,8 @@ import com.bingo.admin.service.IRoleService;
 import com.bingo.admin.service.IUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +18,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
 
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Resource
     private IUserService userService;
@@ -109,4 +115,10 @@ public class UserController {
         return R.ok("删除成功");
     }
 
+    @GetMapping("/testJdbc")
+    @ResponseBody
+    public List<Map<String,Object>> testJdbc(){
+        logger.info("testJdbc testJdbc testJdbc testJdbc testJdbc testJdbc");
+        return userService.testJdbc();
+    }
 }

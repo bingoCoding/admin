@@ -1,5 +1,10 @@
 package com.bingo.admin.commons.config;
 
+import com.bingo.admin.commons.log.access.TomcatServletWebServerFactoryBean;
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.Http11NioProtocol;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -46,4 +51,5 @@ public class WebConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
         super.addResourceHandlers(registry);
     }
+
 }

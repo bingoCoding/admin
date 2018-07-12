@@ -7,9 +7,6 @@ import org.springframework.kafka.support.LoggingProducerListener;
 
 /**
  * 覆盖父类方法，错误时不打印日志
- * 
- * @author 	alanwei
- * @since	2017-01-13
  */
 public class NonLoggingProducerListener<K, V> extends LoggingProducerListener<K, V> {
 

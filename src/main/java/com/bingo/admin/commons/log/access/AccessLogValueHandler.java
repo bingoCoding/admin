@@ -38,7 +38,7 @@ class AccessLogValueHandler extends AccessLogValve {
 	/** 日志跟踪 */
 	@Resource
 	private ILogTracer logTracer;
-	
+
 	@Override
     public void log(CharArrayWriter message) {
 		logTracer.trace(LogTopicConstant.TOPIC_ACCESS_LOG, message.toString());
@@ -106,7 +106,7 @@ class AccessLogValueHandler extends AccessLogValve {
             if (StringUtil.isNotEmpty(ver)) {
                 buf.append(ver);
             } else {
-            	buf.append("-");
+            	buf.append("1.1.1.1");
             }
         }
     }
@@ -125,7 +125,7 @@ class AccessLogValueHandler extends AccessLogValve {
             if (StringUtil.isNotEmpty(sys)) {
                 buf.append(sys);
             } else {
-            	buf.append("-");
+            	buf.append("sys");
             }
         }
     }
